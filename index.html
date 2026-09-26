@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="جستجوی سریع و رسمی دروس ارائه شده ترم 4051 دانشگاه آزاد اسلامی واحد نجف‌آباد؛ دروس عمومی و تخصصی تمام رشته‌ها در یک صفحه." />
+  <title>جستجوی دروس ارائه شده | ترم 4051</title>
+
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+   <!-- ================= Header ================= -->
+   <header class="hero">
+    <div class="container hero-content">
+
+      <!-- بخش لوگوی دانشگاه آزاد و عنوان اصلی -->
+      <div class="brand">
+
+        <!-- لوگوی دانشگاه آزاد؛ جایگزین IAUN -->
+        <div class="brand-badge">
+          <img
+            src="./static/imgs/logos/IAUN_logo.png"
+            alt="لوگوی دانشگاه آزاد اسلامی واحد نجف‌آباد"
+          >
+        </div>
+
+        <!-- عنوان هدر -->
+        <div class="brand-title">
+          <h1>
+            جستجوی دروس عمومی | انتخاب‌ واحد تکمیلی 4051
+          </h1>
+
+          <p>
+            سامانه جستجوی سریع و رسمی برای بررسی دروس ارائه شده
+          </p>
+        </div>
+
+      </div>
+
+      <!-- لوگوی دانشکده مهارت -->
+      <div class="faculty-logo">
+        <img
+          src="./static/imgs/logos/WhatsApp Image 2022-02-06 at 07.01.32.jpeg"
+          alt="لوگوی دانشکده مهارت و کارآفرینی"
+        >
+      </div>
+
+    </div>
+  </header>
+
+
+  <main class="container">
+
+    <!-- ================= Filters + Search ================= -->
+    <section class="search-card" role="search">
+      <div class="search-label">
+        <span class="search-label-icon" aria-hidden="true">
+          <!-- <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg> -->
+          IAUN
+        </span>
+        <div>
+          <h2>جستجوی دروس ارائه شده</h2>
+          <p>ابتدا فیلترها را انتخاب کنید، سپس نام درس، کد درس، کد ارائه، نام استاد یا روز کلاس را وارد کنید</p>
+        </div>
+      </div>
+
+      <!-- ================= Filters ================= -->
+      <div class="filters-grid">
+        <div class="filter-group">
+          <label for="courseTypeSelect">۱) نوع درس</label>
+          <select id="courseTypeSelect" class="filter-select"></select>
+        </div>
+
+        <div class="filter-group">
+          <label for="majorSelect">۲) رشته (فقط برای دروس تخصصی)</label>
+          <select id="majorSelect" class="filter-select" disabled></select>
+        </div>
+
+        <div class="filter-group">
+          <label for="termSelect">۳) دوره</label>
+          <select id="termSelect" class="filter-select"></select>
+        </div>
+      </div>
+
+      <div class="filters-divider"></div>
+
+      <div class="search-row">
+        <div class="search-field">
+          <span class="search-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </span>
+          <input
+            type="text"
+            id="searchInput"
+            class="search-input"
+            aria-label="عبارت جستجو"
+            placeholder="مثلاً: اندیشه اسلامی1، 90610، محمد مرادی افوسی، پنج شنبه ..."
+          />
+        </div>
+        <button class="search-button" type="button" aria-label="انجام جستجو" id="searchButton">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          جستجو
+        </button>
+      </div>
+
+      <div class="search-help">
+        پس از انتخاب فیلترها، همه دروس نمایش داده می‌شود و می‌توانید در میان آن‌ها جستجو کنید:
+        <strong>نام درس، کد درس، کد ارائه، نام استاد، روز کلاس</strong>
+      </div>
+    </section>
+
+    <!-- ================= Table ================= -->
+    <section class="section">
+      <div class="section-header results-header">
+        <h2>نتایج جستجو</h2>
+        <span id="resultsCount" class="results-count"></span>
+      </div>
+      <div class="section-body">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>کد درس</th>
+                <th>نام درس</th>
+                <th>کد ارائه</th>
+                <th>واحد نظری</th>
+                <th>واحد عملی</th>
+                <th>استاد</th>
+                <th>حداکثر ظرفیت</th>
+                <th>جنسیت</th>
+                <th>زمان برگزاری کلاس</th>
+                <th>زمان برگزاری امتحان</th>
+              </tr>
+            </thead>
+            <tbody id="resultsBody">
+              <!-- نتایج اینجا اضافه می‌شوند -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="empty-state" id="emptyState">
+          <strong id="emptyStateTitle">در حال آماده‌سازی اطلاعات...</strong>
+          <span id="emptyStateText">
+            لطفاً چند لحظه صبر کنید تا فهرست دروس بارگیری شود.
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= About IAU Najafabad ================= -->
+    <section class="section">
+      <div class="section-header">
+        <h2>معرفی دانشگاه آزاد اسلامی واحد نجف‌آباد</h2>
+      </div>
+      <div class="section-body about-grid">
+        <div class="about-main">
+          <div class="about-box">
+            <h3>تاریخچه و دستاوردها</h3>
+            <p>
+              دو سال پس از انقلاب فرهنگی ایران در روز ۳۱ اردیبهشت ماه سال ۱۳۶۱ آیت ا... هاشمی رفسنجانی (ره) در خطبه نماز جمعه تهران برای اولین بار از طرحی به نام دانشگاه آزاد اسلامی سخن گفت . در حقیقت سخنان ایشان ، نتایج رایزنی هایی بود که او و دکتر عبدا... جاسبی برای راه اندازی دانشگاه آزاد اسلامی انجام داده بودند .
+
+اولین آزمون ورودی دانشگاه در اسفند ۶۱ با شرکت ۳۲ هزار داوطلب درشاهرود، اهواز، تبریز، تهران، رشت، زاهدان، کرمان، مشهد و یزد برگزار شد و حدود ۳ هزار نفر در رشته‌های راه و ساختمان، برق، مکانیک، فیزیک، ریاضی، شیمی، صنایع فلزی، نساجی و حسابداری پذیرفته شدند.
+              <br><br>
+              <Strong style="color: rgb(11, 11, 122);">برخی از دستاورد ها عبارتند از:</Strong>
+              <br>
+              -کسب رتبه واحد برتر و بیشترین عناوین برتر در دوره‌های مختلف جشنواره فرهیختگان
+              <br>
+              - انتخاب 12 نفر از اعضای هیأت علمی و دو نفر از دانش‌آموختگان واحد به عنوان دانشمند 2% برتر جهان در سال 2024
+              <br>
+              -اخذ مجوز و راه اندازی اولین پارک علم و فناوری خصوصی کشور
+              <br>
+              -اخذ موافقت قطعی مرکز رشد ساخت تجهیزات پزشکی از وزارت بهداشت، درمان وآموزش پزشکی
+              <br>
+              -راه‌اندازی سرای نوآوری صنعت ساخت طلا و جواهرات
+              <br>
+              -استقرار دبیرخانه دائمی کنسرسیوم هوش مصنوعی دانشگاه آزاد اسلامی
+              <br>
+              -کسب مدال طلای جشنوراه بی نالمللی نوآوری انرژی Bixpo 2019 – کره جنوبی 2019
+
+            </p>
+          </div>
+
+          <div class="stats">
+            <div class="stat-item">
+              <span>تأسیس</span>
+              <strong>1364 شمسی</strong>
+            </div>
+            <div class="stat-item">
+              <span>موقعیت</span>
+              <strong>نجف‌آباد، استان اصفهان</strong>
+            </div>
+            <div class="stat-item">
+              <span>حوزه فعالیت</span>
+              <strong>آموزش، پژوهش، فناوری</strong>
+            </div>
+            <div class="stat-item">
+              <span>جایگاه</span>
+              <strong>یکی از واحدهای برتر دانشگاه آزاد اسلامی (رتبه 7 کشور)</strong>
+            </div>
+            <div class="stat-item">
+              <span>شعار</span>
+              <strong>آرمان ایرانی، برای جهانی شدن</strong>
+            </div>
+            <div class="stat-item">
+              <span>چششم انداز</span>
+              <strong>برترین دانشگاه جامع بین دانشگاه های کشور با اعتبار جهانی و قطب علمی- پژوهشی، توسعه دهنده سرمایه های انسانی کارآفرین مورد نیاز جامعه، سردمدار جنبش نرم افزاری و تولید علم، محیط آموزشی برتر و انتخاب اول دانشجویان.</strong>
+            </div>
+            <div class="stat-item">
+              <span> بیانیه ماموریت</span>
+              <strong>توسعه علمی سرمایه های انسانی جامعه، گسترش کمی و کیفی آموزش، فراهم کردن بستر مناسب برای تحقیقات ، تولید و كاربردی نمودن علم، تلاش در جهت رشد و ارتقاء شایستگی های دانشجویان و هیات علمی، توسعه مرزهای دانش و تبدیل آنها به ایده های عملی، کمک به توسعه فرهنگ جامعه.</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- گالری عکس‌های محیط دانشگاه -->
+<div class="about-photos" style="
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+">
+
+  <!-- عکس 1 -->
+  <div class="about-photo" style="
+    position: relative;
+    width: 100%;
+    height: clamp(220px, 32vw, 380px);
+    overflow: hidden;
+    border-radius: 16px;
+    background: #e9eef3;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  ">
+    <img 
+      src="./static/imgs/images1.jpg" 
+      alt="نمای ساختمان اصلی دانشگاه آزاد نجف‌آباد"
+      loading="lazy"
+      style="
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: center;
+      "
+    />
+
+    <div style="
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 22px 18px 16px;
+      color: #fff;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.72), transparent);
+      font-size: 17px;
+      font-weight: 700;
+      text-align: right;
+    ">
+      نمای ساختمان اصلی
+    </div>
+  </div>
+
+  <!-- عکس 2 -->
+  <div class="about-photo" style="
+      position: relative;
+      width: 100%;
+      height: clamp(220px, 32vw, 380px);
+      overflow: hidden;
+      border-radius: 16px;
+      background: #e9eef3;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    ">
+      <img 
+        src="./static/imgs/636139595465406327.jpg" 
+        alt="کتابخانه مرکزی دانشگاه"
+        loading="lazy"
+        style="
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
+          object-position: center;
+        "
+      />
+
+      <div style="
+        position: absolute;
+        inset: auto 0 0 0;
+        padding: 22px 18px 16px;
+        color: #fff;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.72), transparent);
+        font-size: 17px;
+        font-weight: 700;
+        text-align: right;
+      ">
+        کتابخانه مرکزی
+      </div>
+    </div>
+
+    <!-- عکس 3 -->
+    <div class="about-photo" style="
+      position: relative;
+      width: 100%;
+      height: clamp(220px, 32vw, 380px);
+      overflow: hidden;
+      border-radius: 16px;
+      background: #e9eef3;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    ">
+      <img 
+        src="./static/imgs/image.jpg" 
+        alt="آزمایشگاه‌ها و کارگاه‌های تخصصی دانشگاه"
+        loading="lazy"
+        style="
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
+          object-position: center;
+        "
+      />
+
+      <div style="
+        position: absolute;
+        inset: auto 0 0 0;
+        padding: 22px 18px 16px;
+        color: #fff;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.72), transparent);
+        font-size: 17px;
+        font-weight: 700;
+        text-align: right;
+      ">
+        آزمایشگاه‌ها و کارگاه‌ها
+      </div>
+    </div>
+
+    <!-- عکس 4 -->
+    <div class="about-photo" style="
+      position: relative;
+      width: 100%;
+      height: clamp(220px, 32vw, 380px);
+      overflow: hidden;
+      border-radius: 16px;
+      background: #e9eef3;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    ">
+      <img 
+        src="./static/imgs/دانشگاه+نجف+آباد.jpg" 
+        alt="محوطه و فضای سبز دانشگاه"
+        loading="lazy"
+        style="
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
+          object-position: center;
+        "
+      />
+
+      <div style="
+        position: absolute;
+        inset: auto 0 0 0;
+        padding: 22px 18px 16px;
+        color: #fff;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.72), transparent);
+        font-size: 17px;
+        font-weight: 700;
+        text-align: right;
+      ">
+        محوطه و فضای سبز
+      </div>
+    </div>
+
+  </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= Footer ================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-card">
+          <h4>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            تماس با ما
+          </h4>
+          <p>شماره تماس: ۰۳۱۴۲۲۹۲۹۲۹</p>
+          <p>ایمیل: info@najafabad.iau.ir</p>
+        </div>
+
+        <div class="footer-card">
+          <h4>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            آدرس
+          </h4>
+          <p>اصفهان، نجف‌آباد، میدان دانشگاه، دانشگاه آزاد اسلامی واحد نجف‌آباد</p>
+          <p>کد پستی: ۸۵۱۴۱۴۳۱۳۱</p>
+        </div>
+
+        <div class="footer-card">
+          <h4>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            ساعات پاسخ‌گویی
+          </h4>
+          <p>شنبه تا چهارشنبه: ۸:۰۰ تا ۱۵:۳۰</p>
+          <p>پنج‌شنبه و جمعه: تعطیل</p>
+        </div>
+
+        <div class="footer-card">
+          <h4>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+            </svg>
+            لینک‌های مفید
+          </h4>
+          <p><a href="https://edu.iau.ir" >سامانه آموزشیار</a></p>
+          <p><a href="#" >پورتال دانشجویی</a></p>
+        </div>
+      </div>
+
+      <div class="designer">
+        طراحی و پیاده‌سازی توسط: حسین‌آقا حیدری
+      </div>
+    </div>
+  </footer>
+
+  <script src="./script.js"></script>
+
+</body>
+</html>
